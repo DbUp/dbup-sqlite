@@ -1,8 +1,7 @@
 ﻿using DbUp.Builder;
-using DbUp.SQLite;
 using DbUp.Tests.Common;
 
-namespace DbUp.Tests.Providers.SQLite;
+namespace DbUp.SQLite.Tests;
 
 public class DatabaseSupportTests : DatabaseSupportTestsBase
 {

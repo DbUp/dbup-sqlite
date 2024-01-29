@@ -1,6 +1,6 @@
 ﻿using DbUp.Tests.Common;
 
-namespace DbUp.Tests.Providers.SQLite;
+namespace DbUp.SQLite.Tests;
 
 public class NoPublicApiChanges : NoPublicApiChangesBase
 {

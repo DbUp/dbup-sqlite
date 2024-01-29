@@ -2,10 +2,9 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
-using NUnit.Framework;
 using Xunit;
 
-namespace DbUp.Tests.Support.SQLite
+namespace DbUp.SQLite.Tests
 {
     public class SQLiteSupportTests
     {
