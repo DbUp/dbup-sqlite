@@ -1,4 +1,4 @@
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/DbUp/dbup-sqlite/CI/main)](https://github.com/DbUp/dbup-sqlite/actions/workflows/main.yml?query=branch%3Amain)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/DbUp/dbup-sqlite/main.yml?branch=main)](https://github.com/DbUp/dbup-sqlite/actions/workflows/main.yml?query=branch%3Amain)
 [![NuGet](https://img.shields.io/nuget/dt/dbup-sqlite.svg)](https://www.nuget.org/packages/dbup-sqlite)
 [![NuGet](https://img.shields.io/nuget/v/dbup-sqlite.svg)](https://www.nuget.org/packages/dbup-sqlite)
 [![Prerelease](https://img.shields.io/nuget/vpre/dbup-sqlite?color=orange&label=prerelease)](https://www.nuget.org/packages/dbup-sqlite)
