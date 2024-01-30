@@ -1,17 +1,7 @@
 ﻿using System;
 using DbUp.Engine.Transactions;
 using DbUp.Helpers;
-
-#if MONO
-using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
-using SQLiteConnectionStringBuilder = Mono.Data.Sqlite.SqliteConnectionStringBuilder;
-using SQLiteJournalModeEnum = Mono.Data.Sqlite.SQLiteJournalModeEnum;
-#elif NETCORE
-using SQLiteConnection = Microsoft.Data.Sqlite.SqliteConnection;
-using SQLiteConnectionStringBuilder = Microsoft.Data.Sqlite.SqliteConnectionStringBuilder;
-#else
-using System.Data.SQLite;
-#endif
+using Microsoft.Data.Sqlite;
 
 namespace DbUp.SQLite.Helpers
 {
@@ -21,31 +11,23 @@ namespace DbUp.SQLite.Helpers
     public class InMemorySQLiteDatabase : IDisposable
     {
         readonly SQLiteConnectionManager connectionManager;
-        readonly SQLiteConnection sharedConnection;
+        readonly SqliteConnection sharedConnection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InMemorySQLiteDatabase"/> class.
         /// </summary>
         public InMemorySQLiteDatabase()
         {
-            var connectionStringBuilder = new SQLiteConnectionStringBuilder
+            var connectionStringBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = ":memory:",
-#if !NETCORE
-                Version = 3,
-                DefaultTimeout = 5,
-#if MONO
-                JournalMode = SQLiteJournalModeEnum.Off,
-#else
-                JournalMode = SQLiteJournalModeEnum.Memory,
-#endif
-                UseUTF16Encoding = true
-#endif
+                Mode = SqliteOpenMode.Memory,
+                ConnectionString = "PRAGMA encoding='UTF-16'; PRAGMA journal_mode='MEMORY';"
             };
             ConnectionString = connectionStringBuilder.ToString();
 
             connectionManager = new SQLiteConnectionManager(connectionStringBuilder.ConnectionString);
-            sharedConnection = new SQLiteConnection(connectionStringBuilder.ConnectionString);
+            sharedConnection = new SqliteConnection(connectionStringBuilder.ConnectionString);
             sharedConnection.Open();
             SqlRunner = new AdHocSqlRunner(() => sharedConnection.CreateCommand(), new SQLiteObjectParser(), null, () => true);
         }
