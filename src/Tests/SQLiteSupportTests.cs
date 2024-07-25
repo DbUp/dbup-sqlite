@@ -1,7 +1,5 @@
-﻿#if !NETCORE
-using System;
-using System.Data.SQLite;
-using System.IO;
+﻿using Microsoft.Data.Sqlite;
+using Shouldly;
 using Xunit;
 
 namespace DbUp.SQLite.Tests
@@ -13,18 +11,17 @@ namespace DbUp.SQLite.Tests
         [Fact]
         public void CanUseSQLite()
         {
-            var connectionString = string.Format("Data Source={0}; Version=3;", dbFilePath);
-
-            if (!File.Exists(dbFilePath))
-            {
-                SQLiteConnection.CreateFile(dbFilePath);
-            }
+            var connectionString = $"Data Source={dbFilePath}";
 
             var upgrader = DeployChanges.To
                 .SQLiteDatabase(connectionString)
                 .WithScript("Script0001", "CREATE TABLE IF NOT EXISTS Foo (Id int)")
                 .Build();
+
+            var result = upgrader.PerformUpgrade();
+            
+            result.Error.ShouldBe(null);
+            result.Successful.ShouldBe(true);
         }
     }
 }
-#endif

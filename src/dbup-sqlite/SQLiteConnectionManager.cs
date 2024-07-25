@@ -3,13 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DbUp.Engine.Transactions;
 using DbUp.SQLite.Helpers;
-#if MONO
-using SQLiteConnection = Mono.Data.Sqlite.SqliteConnection;
-#elif NETCORE
-using SQLiteConnection = Microsoft.Data.Sqlite.SqliteConnection;
-#else
-using System.Data.SQLite;
-#endif
+using Microsoft.Data.Sqlite;
 
 namespace DbUp.SQLite
 {
@@ -21,7 +15,7 @@ namespace DbUp.SQLite
         /// <summary>
         /// Creates new SQLite Connection Manager
         /// </summary>
-        public SQLiteConnectionManager(string connectionString) : base(l => new SQLiteConnection(connectionString))
+        public SQLiteConnectionManager(string connectionString) : base(l => new SqliteConnection(connectionString))
         {
         }
 
