@@ -23,6 +23,8 @@ namespace DbUp.SQLite.Helpers
             {
                 DataSource = ":memory:",
                 DefaultTimeout = 5,
+                Mode = SqliteOpenMode.Memory,
+                ConnectionString = "PRAGMA encoding='UTF-16'; PRAGMA journal_mode='MEMORY';"
             };
             ConnectionString = connectionStringBuilder.ToString();
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Data.Sqlite;
 
 namespace SQLiteSampleApplication
 {
@@ -55,7 +56,7 @@ namespace SQLiteSampleApplication
 
         static void PermanentFileDb()
         {
-            Microsoft.Data.Sqlite.SqliteConnection connection = new("Data Source=dbup.db");
+            SqliteConnection connection = new("Data Source=dbup.db");
 
             using (var database = new DbUp.SQLite.Helpers.SharedConnection(connection))
             {
