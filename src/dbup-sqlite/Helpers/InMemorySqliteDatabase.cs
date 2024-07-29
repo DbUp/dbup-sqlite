@@ -4,20 +4,20 @@ using DbUp.Helpers;
 using Microsoft.Data.Sqlite;
 
 
-namespace DbUp.SQLite.Helpers
+namespace DbUp.Sqlite.Helpers
 {
     /// <summary>
     /// Used to create in-memory SQLite database that is deleted at the end of a test.
     /// </summary>
-    public class InMemorySQLiteDatabase : IDisposable
+    public class InMemorySqliteDatabase : IDisposable
     {
-        readonly SQLiteConnectionManager connectionManager;
+        readonly SqliteConnectionManager connectionManager;
         readonly SqliteConnection sharedConnection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InMemorySQLiteDatabase"/> class.
+        /// Initializes a new instance of the <see cref="InMemorySqliteDatabase"/> class.
         /// </summary>
-        public InMemorySQLiteDatabase()
+        public InMemorySqliteDatabase()
         {
             var connectionStringBuilder = new SqliteConnectionStringBuilder
             {
@@ -26,10 +26,10 @@ namespace DbUp.SQLite.Helpers
             };
             ConnectionString = connectionStringBuilder.ToString();
 
-            connectionManager = new SQLiteConnectionManager(connectionStringBuilder.ConnectionString);
+            connectionManager = new SqliteConnectionManager(connectionStringBuilder.ConnectionString);
             sharedConnection = new SqliteConnection(connectionStringBuilder.ConnectionString);
             sharedConnection.Open();
-            SqlRunner = new AdHocSqlRunner(() => sharedConnection.CreateCommand(), new SQLiteObjectParser(), null, () => true);
+            SqlRunner = new AdHocSqlRunner(() => sharedConnection.CreateCommand(), new SqliteObjectParser(), null, () => true);
         }
 
         public string ConnectionString { get; set; }

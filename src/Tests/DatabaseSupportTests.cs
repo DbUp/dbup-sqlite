@@ -1,7 +1,7 @@
 ﻿using DbUp.Builder;
 using DbUp.Tests.Common;
 
-namespace DbUp.SQLite.Tests;
+namespace DbUp.Sqlite.Tests;
 
 public class DatabaseSupportTests : DatabaseSupportTestsBase
 {
@@ -10,11 +10,11 @@ public class DatabaseSupportTests : DatabaseSupportTestsBase
     }
 
     protected override UpgradeEngineBuilder DeployTo(SupportedDatabases to)
-        => to.SQLiteDatabase("");
+        => to.SqliteDatabase("");
 
     protected override UpgradeEngineBuilder AddCustomNamedJournalToBuilder(UpgradeEngineBuilder builder, string schema, string tableName)
         => builder.JournalTo(
             (connectionManagerFactory, logFactory)
-                => new SQLiteTableJournal(connectionManagerFactory, logFactory, tableName)
+                => new SqliteTableJournal(connectionManagerFactory, logFactory, tableName)
         );
 }

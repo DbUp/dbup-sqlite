@@ -4,19 +4,19 @@ using DbUp.Engine.Output;
 using DbUp.Engine.Transactions;
 using DbUp.Support;
 
-namespace DbUp.SQLite
+namespace DbUp.Sqlite
 {
     /// <summary>
     /// An implementation of the <see cref="IJournal"/> interface which tracks version numbers for a
     /// SQLite database using a table called SchemaVersions.
     /// </summary>
-    public class SQLiteTableJournal : TableJournal
+    public class SqliteTableJournal : TableJournal
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SQLiteTableJournal"/> class.
+        /// Initializes a new instance of the <see cref="SqliteTableJournal"/> class.
         /// </summary>
-        public SQLiteTableJournal(Func<IConnectionManager> connectionManager, Func<IUpgradeLog> logger, string table) :
-            base(connectionManager, logger, new SQLiteObjectParser(), null, table)
+        public SqliteTableJournal(Func<IConnectionManager> connectionManager, Func<IUpgradeLog> logger, string table) :
+            base(connectionManager, logger, new SqliteObjectParser(), null, table)
         { }
 
         protected override string GetInsertJournalEntrySql(string @scriptName, string @applied)

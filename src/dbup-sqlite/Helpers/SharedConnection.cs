@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace DbUp.SQLite.Helpers
+namespace DbUp.Sqlite.Helpers
 {
     /// <summary>
     /// A database connection wrapper to manage underlying connection as a shared connection

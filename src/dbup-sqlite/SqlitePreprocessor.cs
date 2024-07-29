@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using DbUp.Engine;
 
-namespace DbUp.SQLite
+namespace DbUp.Sqlite
 {
     /// <summary>
     /// This preprocessor makes adjustments to your sql to make it compatible with Sqlite
     /// </summary>
-    public class SQLitePreprocessor : IScriptPreprocessor
+    public class SqlitePreprocessor : IScriptPreprocessor
     {
         /// <summary>
         /// Performs some preprocessing step on a SQLite script

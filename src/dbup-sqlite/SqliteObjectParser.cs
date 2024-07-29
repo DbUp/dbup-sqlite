@@ -1,13 +1,13 @@
 ﻿using DbUp.Support;
 
-namespace DbUp.SQLite
+namespace DbUp.Sqlite
 {
     /// <summary>
     /// Parses Sql Objects and performs quoting functions.
     /// </summary>
-    public class SQLiteObjectParser : SqlObjectParser
+    public class SqliteObjectParser : SqlObjectParser
     {
-        public SQLiteObjectParser()
+        public SqliteObjectParser()
             : base("[", "]")
         {
         }

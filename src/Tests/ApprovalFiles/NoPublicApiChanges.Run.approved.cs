@@ -2,49 +2,49 @@
 [assembly: System.Runtime.InteropServices.ComVisibleAttribute(false)]
 [assembly: System.Runtime.InteropServices.GuidAttribute("9f949414-f078-49bf-b50e-a3859c18fb6e")]
 
-public static class SQLiteExtensions
+public static class SqliteExtensions
 {
-    public static DbUp.Builder.UpgradeEngineBuilder JournalToSQLiteTable(this DbUp.Builder.UpgradeEngineBuilder builder, string table) { }
-    public static DbUp.Builder.UpgradeEngineBuilder SQLiteDatabase(this DbUp.Builder.SupportedDatabases supported, string connectionString) { }
-    public static DbUp.Builder.UpgradeEngineBuilder SQLiteDatabase(this DbUp.Builder.SupportedDatabases supported, DbUp.SQLite.Helpers.SharedConnection sharedConnection) { }
+    public static DbUp.Builder.UpgradeEngineBuilder JournalToSqliteTable(this DbUp.Builder.UpgradeEngineBuilder builder, string table) { }
+    public static DbUp.Builder.UpgradeEngineBuilder SqliteDatabase(this DbUp.Builder.SupportedDatabases supported, string connectionString) { }
+    public static DbUp.Builder.UpgradeEngineBuilder SqliteDatabase(this DbUp.Builder.SupportedDatabases supported, DbUp.Sqlite.Helpers.SharedConnection sharedConnection) { }
 }
-namespace DbUp.SQLite
+namespace DbUp.Sqlite
 {
-    public class SQLiteConnectionManager : DbUp.Engine.Transactions.DatabaseConnectionManager, DbUp.Engine.Transactions.IConnectionManager
+    public class SqliteConnectionManager : DbUp.Engine.Transactions.DatabaseConnectionManager, DbUp.Engine.Transactions.IConnectionManager
     {
-        public SQLiteConnectionManager(string connectionString) { }
-        public SQLiteConnectionManager(DbUp.SQLite.Helpers.SharedConnection sharedConnection) { }
+        public SqliteConnectionManager(string connectionString) { }
+        public SqliteConnectionManager(DbUp.Sqlite.Helpers.SharedConnection sharedConnection) { }
         public override System.Collections.Generic.IEnumerable<string> SplitScriptIntoCommands(string scriptContents) { }
     }
-    public class SQLiteObjectParser : DbUp.Support.SqlObjectParser, DbUp.Engine.ISqlObjectParser
+    public class SqliteObjectParser : DbUp.Support.SqlObjectParser, DbUp.Engine.ISqlObjectParser
     {
-        public SQLiteObjectParser() { }
+        public SqliteObjectParser() { }
     }
-    public class SQLitePreprocessor : DbUp.Engine.IScriptPreprocessor
+    public class SqlitePreprocessor : DbUp.Engine.IScriptPreprocessor
     {
-        public SQLitePreprocessor() { }
+        public SqlitePreprocessor() { }
         public string Process(string contents) { }
     }
-    public class SQLiteScriptExecutor : DbUp.Support.ScriptExecutor, DbUp.Engine.IScriptExecutor
+    public class SqliteScriptExecutor : DbUp.Support.ScriptExecutor, DbUp.Engine.IScriptExecutor
     {
-        public SQLiteScriptExecutor(System.Func<DbUp.Engine.Transactions.IConnectionManager> connectionManagerFactory, System.Func<DbUp.Engine.Output.IUpgradeLog> log, string schema, System.Func<bool> variablesEnabled, System.Collections.Generic.IEnumerable<DbUp.Engine.IScriptPreprocessor> scriptPreprocessors, System.Func<DbUp.Engine.IJournal> journalFactory) { }
+        public SqliteScriptExecutor(System.Func<DbUp.Engine.Transactions.IConnectionManager> connectionManagerFactory, System.Func<DbUp.Engine.Output.IUpgradeLog> log, string schema, System.Func<bool> variablesEnabled, System.Collections.Generic.IEnumerable<DbUp.Engine.IScriptPreprocessor> scriptPreprocessors, System.Func<DbUp.Engine.IJournal> journalFactory) { }
         protected override void ExecuteCommandsWithinExceptionHandler(int index, DbUp.Engine.SqlScript script, System.Action executeCommand) { }
         protected override string GetVerifySchemaSql(string schema) { }
     }
-    public class SQLiteTableJournal : DbUp.Support.TableJournal, DbUp.Engine.IJournal
+    public class SqliteTableJournal : DbUp.Support.TableJournal, DbUp.Engine.IJournal
     {
-        public SQLiteTableJournal(System.Func<DbUp.Engine.Transactions.IConnectionManager> connectionManager, System.Func<DbUp.Engine.Output.IUpgradeLog> logger, string table) { }
+        public SqliteTableJournal(System.Func<DbUp.Engine.Transactions.IConnectionManager> connectionManager, System.Func<DbUp.Engine.Output.IUpgradeLog> logger, string table) { }
         protected override string CreateSchemaTableSql(string quotedPrimaryKeyName) { }
         protected override string DoesTableExistSql() { }
         protected override string GetInsertJournalEntrySql(string scriptName, string applied) { }
         protected override string GetJournalEntriesSql() { }
     }
 }
-namespace DbUp.SQLite.Helpers
+namespace DbUp.Sqlite.Helpers
 {
-    public class InMemorySQLiteDatabase : System.IDisposable
+    public class InMemorySqliteDatabase : System.IDisposable
     {
-        public InMemorySQLiteDatabase() { }
+        public InMemorySqliteDatabase() { }
         public string ConnectionString { get; set; }
         public DbUp.Helpers.AdHocSqlRunner SqlRunner { get; }
         public void Dispose() { }
@@ -66,10 +66,10 @@ namespace DbUp.SQLite.Helpers
         public void DoClose() { }
         public void Open() { }
     }
-    public class TemporarySQLiteDatabase : System.IDisposable
+    public class TemporarySqliteDatabase : System.IDisposable
     {
-        public TemporarySQLiteDatabase(string name) { }
-        public DbUp.SQLite.Helpers.SharedConnection SharedConnection { get; }
+        public TemporarySqliteDatabase(string name) { }
+        public DbUp.Sqlite.Helpers.SharedConnection SharedConnection { get; }
         public DbUp.Helpers.AdHocSqlRunner SqlRunner { get; }
         public void Dispose() { }
     }

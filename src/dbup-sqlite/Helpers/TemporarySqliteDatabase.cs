@@ -4,21 +4,21 @@ using DbUp.Helpers;
 using Microsoft.Data.Sqlite;
 
 
-namespace DbUp.SQLite.Helpers
+namespace DbUp.Sqlite.Helpers
 {
     /// <summary>
     /// Used to create SQLite databases that are deleted at the end of a test.
     /// </summary>
-    public class TemporarySQLiteDatabase : IDisposable
+    public class TemporarySqliteDatabase : IDisposable
     {
         readonly string dataSourcePath;
         readonly SqliteConnection sqLiteConnection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TemporarySQLiteDatabase"/> class.
+        /// Initializes a new instance of the <see cref="TemporarySqliteDatabase"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        public TemporarySQLiteDatabase(string name)
+        public TemporarySqliteDatabase(string name)
         {
             dataSourcePath = Path.Combine(Directory.GetCurrentDirectory(), name);
 
@@ -31,7 +31,7 @@ namespace DbUp.SQLite.Helpers
             sqLiteConnection = new SqliteConnection(connectionStringBuilder.ConnectionString);
             sqLiteConnection.Open();
             SharedConnection = new SharedConnection(sqLiteConnection);
-            SqlRunner = new AdHocSqlRunner(() => sqLiteConnection.CreateCommand(), new SQLiteObjectParser(), null, () => true);
+            SqlRunner = new AdHocSqlRunner(() => sqLiteConnection.CreateCommand(), new SqliteObjectParser(), null, () => true);
         }
 
         /// <summary>
