@@ -23,8 +23,11 @@ namespace DbUp.SQLite.Tests
             result.Successful.ShouldBe(true);
         }
 
+        /// <summary>
+        /// Test for https://github.com/DbUp/dbup-sqlite/issues/2
+        /// </summary>
         [Fact]
-        public void DoesNotExhibitSafeHandleError_Issue577()
+        public void DoesNotExhibitSafeHandleError()
         {
             var connectionString = "Data source=:memory:";
 
