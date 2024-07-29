@@ -88,12 +88,14 @@ namespace SQLiteSampleApplication
                     "{0} Database Upgrade Runtime: {1}",
                     dbType,
                     string.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10));
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(result.Error);
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine("Failed!");
             }

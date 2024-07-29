@@ -41,9 +41,9 @@ namespace DbUp.SQLite
             }
             catch (SqliteException exception)
             {
-                Log().WriteInformation("SQLite exception has occurred in script: '{0}'", script.Name);
-                Log().WriteError("Script block number: {0}; Error Code: {1}; Message: {2}", index, exception.ErrorCode, exception.Message);
-                Log().WriteError(exception.ToString());
+                Log().LogInformation("SQLite exception has occurred in script: '{0}'", script.Name);
+                Log().LogError("Script block number: {0}; Error Code: {1}; Message: {2}", index, exception.SqliteErrorCode, exception.Message);
+                Log().LogError(exception.ToString());
                 throw;
             }
         }

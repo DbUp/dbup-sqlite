@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using DbUp.Engine;
 using DbUp.Engine.Output;
 using DbUp.Engine.Transactions;
@@ -21,7 +20,7 @@ namespace DbUp.SQLite.Tests
             var command = Substitute.For<IDbCommand>();
             dbConnection.CreateCommand().Returns(command);
             var connectionManager = Substitute.For<IConnectionManager>();
-            command.ExecuteScalar().Returns(x => throw new SqliteException("table not found",1));
+            command.ExecuteScalar().Returns(x => { throw new SqliteException("table not found", 0); });
             var consoleUpgradeLog = new ConsoleUpgradeLog();
             var journal = new SQLiteTableJournal(() => connectionManager, () => consoleUpgradeLog, "SchemaVersions");
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace DbUp.SQLite.Tests
@@ -12,12 +10,17 @@ namespace DbUp.SQLite.Tests
         [Fact]
         public void CanUseSQLite()
         {
-            var connectionString = $"Data Source={DbFilePath}; Version=3;";
+            var connectionString = $"Data Source={DbFilePath}";
 
-            DeployChanges.To
+            var upgrader = DeployChanges.To
                 .SQLiteDatabase(connectionString)
                 .WithScript("Script0001", "CREATE TABLE IF NOT EXISTS Foo (Id int)")
                 .Build();
+
+            var result = upgrader.PerformUpgrade();
+            
+            result.Error.ShouldBe(null);
+            result.Successful.ShouldBe(true);
         }
 
         [Fact]

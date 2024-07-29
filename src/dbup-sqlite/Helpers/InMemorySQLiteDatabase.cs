@@ -3,6 +3,7 @@ using DbUp.Engine.Transactions;
 using DbUp.Helpers;
 using Microsoft.Data.Sqlite;
 
+
 namespace DbUp.SQLite.Helpers
 {
     /// <summary>
@@ -21,6 +22,7 @@ namespace DbUp.SQLite.Helpers
             var connectionStringBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = ":memory:",
+                DefaultTimeout = 5,
                 Mode = SqliteOpenMode.Memory,
                 ConnectionString = "PRAGMA encoding='UTF-16'; PRAGMA journal_mode='MEMORY';"
             };

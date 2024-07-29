@@ -3,6 +3,7 @@ using System.IO;
 using DbUp.Helpers;
 using Microsoft.Data.Sqlite;
 
+
 namespace DbUp.SQLite.Helpers
 {
     /// <summary>
@@ -24,6 +25,7 @@ namespace DbUp.SQLite.Helpers
             var connectionStringBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = name,
+                DefaultTimeout = 5,
             };
 
             sqLiteConnection = new SqliteConnection(connectionStringBuilder.ConnectionString);
@@ -48,6 +50,11 @@ namespace DbUp.SQLite.Helpers
             if (!filePath.Exists) return;
             SharedConnection.Dispose();
             sqLiteConnection.Dispose();
+            
+            // SQLite requires all created sql connection/command objects to be disposed
+            // in order to delete the database file
+            SqliteConnection.ClearAllPools();
+
             File.Delete(dataSourcePath);
         }
     }
