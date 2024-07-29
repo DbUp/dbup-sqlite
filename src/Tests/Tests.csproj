@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8</TargetFramework>
     <AssemblyName>Tests</AssemblyName>
-    <RootNamespace>DbUp.SQLite.Tests</RootNamespace>
+    <RootNamespace>DbUp.Sqlite.Tests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

@@ -2,9 +2,9 @@
 using Shouldly;
 using Xunit;
 
-namespace DbUp.SQLite.Tests
+namespace DbUp.Sqlite.Tests
 {
-    public class SQLiteSupportTests
+    public class SqliteSupportTests
     {
         static readonly string dbFilePath = Path.Combine(Environment.CurrentDirectory, "test.db");
 
@@ -14,7 +14,7 @@ namespace DbUp.SQLite.Tests
             var connectionString = $"Data Source={dbFilePath}";
 
             var upgrader = DeployChanges.To
-                .SQLiteDatabase(connectionString)
+                .SqliteDatabase(connectionString)
                 .WithScript("Script0001", "CREATE TABLE IF NOT EXISTS Foo (Id int)")
                 .Build();
 

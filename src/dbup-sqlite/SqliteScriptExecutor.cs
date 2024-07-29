@@ -6,15 +6,15 @@ using DbUp.Engine.Transactions;
 using DbUp.Support;
 using Microsoft.Data.Sqlite;
 
-namespace DbUp.SQLite
+namespace DbUp.Sqlite
 {
     /// <summary>
     /// An implementation of <see cref="ScriptExecutor"/> that executes against a SQLite database.
     /// </summary>
-    public class SQLiteScriptExecutor : ScriptExecutor
+    public class SqliteScriptExecutor : ScriptExecutor
     {
         /// <summary>
-        /// Initializes an instance of the <see cref="SQLiteScriptExecutor"/> class.
+        /// Initializes an instance of the <see cref="SqliteScriptExecutor"/> class.
         /// </summary>
         /// <param name="connectionManagerFactory"></param>
         /// <param name="log">The logging mechanism.</param>
@@ -22,9 +22,9 @@ namespace DbUp.SQLite
         /// <param name="variablesEnabled">Function that returns <c>true</c> if variables should be replaced, <c>false</c> otherwise.</param>
         /// <param name="scriptPreprocessors">Script Preprocessors in addition to variable substitution</param>
         /// <param name="journalFactory">Database journal</param>
-        public SQLiteScriptExecutor(Func<IConnectionManager> connectionManagerFactory, Func<IUpgradeLog> log, string schema, Func<bool> variablesEnabled,
+        public SqliteScriptExecutor(Func<IConnectionManager> connectionManagerFactory, Func<IUpgradeLog> log, string schema, Func<bool> variablesEnabled,
             IEnumerable<IScriptPreprocessor> scriptPreprocessors, Func<IJournal> journalFactory)
-            : base(connectionManagerFactory, new SQLiteObjectParser(), log, schema, variablesEnabled, scriptPreprocessors, journalFactory)
+            : base(connectionManagerFactory, new SqliteObjectParser(), log, schema, variablesEnabled, scriptPreprocessors, journalFactory)
         {
         }
 

@@ -2,27 +2,27 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using DbUp.Engine.Transactions;
-using DbUp.SQLite.Helpers;
+using DbUp.Sqlite.Helpers;
 using Microsoft.Data.Sqlite;
 
-namespace DbUp.SQLite
+namespace DbUp.Sqlite
 {
     /// <summary>
     /// Connection manager for Sql Lite
     /// </summary>
-    public class SQLiteConnectionManager : DatabaseConnectionManager
+    public class SqliteConnectionManager : DatabaseConnectionManager
     {
         /// <summary>
         /// Creates new SQLite Connection Manager
         /// </summary>
-        public SQLiteConnectionManager(string connectionString) : base(l => new SqliteConnection(connectionString))
+        public SqliteConnectionManager(string connectionString) : base(l => new SqliteConnection(connectionString))
         {
         }
 
         /// <summary>
         /// Creates new SQLite Connection Manager
         /// </summary>
-        public SQLiteConnectionManager(SharedConnection sharedConnection) : base(l => sharedConnection)
+        public SqliteConnectionManager(SharedConnection sharedConnection) : base(l => sharedConnection)
         {
         }
 
