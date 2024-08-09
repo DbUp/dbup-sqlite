@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="dbup-core" Version="6.0.0-beta.146"/>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.7" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
