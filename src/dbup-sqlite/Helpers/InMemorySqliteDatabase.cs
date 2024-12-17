@@ -23,6 +23,7 @@ namespace DbUp.Sqlite.Helpers
             {
                 DataSource = ":memory:",
                 DefaultTimeout = 5,
+                Mode = SqliteOpenMode.Memory
             };
             ConnectionString = connectionStringBuilder.ToString();
 
