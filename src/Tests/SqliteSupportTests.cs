@@ -8,7 +8,7 @@ namespace DbUp.Sqlite.Tests
         static readonly string DbFilePath = Path.Combine(Environment.CurrentDirectory, "test.db");
 
         [Fact]
-        public void CanUseSQLite()
+        public void CanUseSqlite()
         {
             var connectionString = $"Data Source={DbFilePath}";
 
@@ -33,7 +33,7 @@ namespace DbUp.Sqlite.Tests
 
             var upgrader =
                 DeployChanges.To
-                    .SQLiteDatabase(connectionString)
+                    .SqliteDatabase(connectionString)
                     .WithScript("Script001", @"
 create table test (
     contact_id INTEGER PRIMARY KEY
