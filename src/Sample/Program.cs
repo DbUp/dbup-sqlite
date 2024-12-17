@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Data.Sqlite;
 
-namespace SQLiteSampleApplication
+namespace SqliteSampleApplication
 {
     public static class Program
     {
@@ -14,11 +14,11 @@ namespace SQLiteSampleApplication
 
         static void InMemoryDb()
         {
-            using (var database = new DbUp.SQLite.Helpers.InMemorySQLiteDatabase())
+            using (var database = new DbUp.Sqlite.Helpers.InMemorySqliteDatabase())
             {
                 var upgrader =
                     DbUp.DeployChanges.To
-                        .SQLiteDatabase(database.ConnectionString)
+                        .SqliteDatabase(database.ConnectionString)
                         .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                         .LogToConsole()
                         .Build();
@@ -35,11 +35,11 @@ namespace SQLiteSampleApplication
 
         static void TemporaryFileDb()
         {
-            using (var database = new DbUp.SQLite.Helpers.TemporarySQLiteDatabase("test.db"))
+            using (var database = new DbUp.Sqlite.Helpers.TemporarySqliteDatabase("test.db"))
             {
                 var upgrader =
                     DbUp.DeployChanges.To
-                        .SQLiteDatabase(database.SharedConnection)
+                        .SqliteDatabase(database.SharedConnection)
                         .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                         .LogToConsole()
                         .Build();
@@ -58,11 +58,11 @@ namespace SQLiteSampleApplication
         {
             SqliteConnection connection = new("Data Source=dbup.db");
 
-            using (var database = new DbUp.SQLite.Helpers.SharedConnection(connection))
+            using (var database = new DbUp.Sqlite.Helpers.SharedConnection(connection))
             {
                 var upgrader = DbUp.DeployChanges
                     .To
-                    .SQLiteDatabase(connection.ConnectionString)
+                    .SqliteDatabase(connection.ConnectionString)
                     .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                     .LogToConsole()
                     .Build();
