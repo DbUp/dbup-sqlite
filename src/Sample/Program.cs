@@ -1,6 +1,7 @@
 ﻿using System;
+using Microsoft.Data.Sqlite;
 
-namespace SQLiteSampleApplication
+namespace SqliteSampleApplication
 {
     public static class Program
     {
@@ -13,11 +14,11 @@ namespace SQLiteSampleApplication
 
         static void InMemoryDb()
         {
-            using (var database = new DbUp.SQLite.Helpers.InMemorySQLiteDatabase())
+            using (var database = new DbUp.Sqlite.Helpers.InMemorySqliteDatabase())
             {
                 var upgrader =
                     DbUp.DeployChanges.To
-                        .SQLiteDatabase(database.ConnectionString)
+                        .SqliteDatabase(database.ConnectionString)
                         .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                         .LogToConsole()
                         .Build();
@@ -34,11 +35,11 @@ namespace SQLiteSampleApplication
 
         static void TemporaryFileDb()
         {
-            using (var database = new DbUp.SQLite.Helpers.TemporarySQLiteDatabase("test.db"))
+            using (var database = new DbUp.Sqlite.Helpers.TemporarySqliteDatabase("test.db"))
             {
                 var upgrader =
                     DbUp.DeployChanges.To
-                        .SQLiteDatabase(database.SharedConnection)
+                        .SqliteDatabase(database.SharedConnection)
                         .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                         .LogToConsole()
                         .Build();
@@ -55,13 +56,13 @@ namespace SQLiteSampleApplication
 
         static void PermanentFileDb()
         {
-            Microsoft.Data.Sqlite.SqliteConnection connection = new("Data Source=dbup.db");
+            SqliteConnection connection = new("Data Source=dbup.db");
 
-            using (var database = new DbUp.SQLite.Helpers.SharedConnection(connection))
+            using (var database = new DbUp.Sqlite.Helpers.SharedConnection(connection))
             {
                 var upgrader = DbUp.DeployChanges
                     .To
-                    .SQLiteDatabase(connection.ConnectionString)
+                    .SqliteDatabase(connection.ConnectionString)
                     .WithScriptsEmbeddedInAssembly(System.Reflection.Assembly.GetExecutingAssembly())
                     .LogToConsole()
                     .Build();
@@ -87,12 +88,14 @@ namespace SQLiteSampleApplication
                     "{0} Database Upgrade Runtime: {1}",
                     dbType,
                     string.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10));
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(result.Error);
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 Console.WriteLine("Failed!");
             }

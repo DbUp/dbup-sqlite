@@ -1,18 +1,16 @@
-﻿#if !NETCORE
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
+﻿using System.Data;
 using DbUp.Engine;
 using DbUp.Engine.Output;
 using DbUp.Engine.Transactions;
 using DbUp.Tests.Common;
+using Microsoft.Data.Sqlite;
 using NSubstitute;
 using Shouldly;
 using Xunit;
 
-namespace DbUp.SQLite.Tests
+namespace DbUp.Sqlite.Tests
 {
-    public class SQLiteTableJournalTests
+    public class SqliteTableJournalTests
     {
         [Fact]
         public void dbversion_is_zero_when_journal_table_not_exist()
@@ -22,9 +20,9 @@ namespace DbUp.SQLite.Tests
             var command = Substitute.For<IDbCommand>();
             dbConnection.CreateCommand().Returns(command);
             var connectionManager = Substitute.For<IConnectionManager>();
-            command.ExecuteScalar().Returns(x => { throw new SQLiteException("table not found"); });
+            command.ExecuteScalar().Returns(x => { throw new SqliteException("table not found", 0); });
             var consoleUpgradeLog = new ConsoleUpgradeLog();
-            var journal = new SQLiteTableJournal(() => connectionManager, () => consoleUpgradeLog, "SchemaVersions");
+            var journal = new SqliteTableJournal(() => connectionManager, () => consoleUpgradeLog, "SchemaVersions");
 
             // When
             var scripts = journal.GetExecutedScripts();
@@ -49,7 +47,7 @@ namespace DbUp.SQLite.Tests
             command.CreateParameter().Returns(param1, param2);
             command.ExecuteScalar().Returns(x => 0);
             var consoleUpgradeLog = new ConsoleUpgradeLog();
-            var journal = new SQLiteTableJournal(() => connectionManager, () => consoleUpgradeLog, "SchemaVersions");
+            var journal = new SqliteTableJournal(() => connectionManager, () => consoleUpgradeLog, "SchemaVersions");
 
             // When
             journal.StoreExecutedScript(new SqlScript("test", "select 1"), () => command);
@@ -62,4 +60,3 @@ namespace DbUp.SQLite.Tests
         }
     }
 }
-#endif

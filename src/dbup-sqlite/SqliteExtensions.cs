@@ -1,6 +1,6 @@
 ﻿using DbUp.Builder;
-using DbUp.SQLite;
-using DbUp.SQLite.Helpers;
+using DbUp.Sqlite;
+using DbUp.Sqlite.Helpers;
 
 /// <summary>
 /// Configuration extension methods for SQLite (see http://www.sqlite.org/)
@@ -9,7 +9,7 @@ using DbUp.SQLite.Helpers;
 // Since the class just contains extension methods, we leave it in the root so that it is always discovered
 // and people don't have to manually add using statements.
 // ReSharper disable CheckNamespace
-public static class SQLiteExtensions
+public static class SqliteExtensions
 // ReSharper restore CheckNamespace
 {
     /// <summary>
@@ -20,14 +20,14 @@ public static class SQLiteExtensions
     /// <returns>
     /// A builder for a database upgrader designed for SQLite databases.
     /// </returns>
-    public static UpgradeEngineBuilder SQLiteDatabase(this SupportedDatabases supported, string connectionString)
+    public static UpgradeEngineBuilder SqliteDatabase(this SupportedDatabases supported, string connectionString)
     {
         var builder = new UpgradeEngineBuilder();
-        builder.Configure(c => c.ConnectionManager = new SQLiteConnectionManager(connectionString));
-        builder.Configure(c => c.Journal = new SQLiteTableJournal(() => c.ConnectionManager, () => c.Log, "SchemaVersions"));
-        builder.Configure(c => c.ScriptExecutor = new SQLiteScriptExecutor(() => c.ConnectionManager, () => c.Log, null,
+        builder.Configure(c => c.ConnectionManager = new SqliteConnectionManager(connectionString));
+        builder.Configure(c => c.Journal = new SqliteTableJournal(() => c.ConnectionManager, () => c.Log, "SchemaVersions"));
+        builder.Configure(c => c.ScriptExecutor = new SqliteScriptExecutor(() => c.ConnectionManager, () => c.Log, null,
             () => c.VariablesEnabled, c.ScriptPreprocessors, () => c.Journal));
-        builder.WithPreprocessor(new SQLitePreprocessor());
+        builder.WithPreprocessor(new SqlitePreprocessor());
         return builder;
     }
 
@@ -39,14 +39,14 @@ public static class SQLiteExtensions
     /// <returns>
     /// A builder for a database upgrader designed for SQLite databases.
     /// </returns>
-    public static UpgradeEngineBuilder SQLiteDatabase(this SupportedDatabases supported, SharedConnection sharedConnection)
+    public static UpgradeEngineBuilder SqliteDatabase(this SupportedDatabases supported, SharedConnection sharedConnection)
     {
         var builder = new UpgradeEngineBuilder();
-        builder.Configure(c => c.ConnectionManager = new SQLiteConnectionManager(sharedConnection));
-        builder.Configure(c => c.Journal = new SQLiteTableJournal(() => c.ConnectionManager, () => c.Log, "SchemaVersions"));
-        builder.Configure(c => c.ScriptExecutor = new SQLiteScriptExecutor(() => c.ConnectionManager, () => c.Log, null,
+        builder.Configure(c => c.ConnectionManager = new SqliteConnectionManager(sharedConnection));
+        builder.Configure(c => c.Journal = new SqliteTableJournal(() => c.ConnectionManager, () => c.Log, "SchemaVersions"));
+        builder.Configure(c => c.ScriptExecutor = new SqliteScriptExecutor(() => c.ConnectionManager, () => c.Log, null,
             () => c.VariablesEnabled, c.ScriptPreprocessors, () => c.Journal));
-        builder.WithPreprocessor(new SQLitePreprocessor());
+        builder.WithPreprocessor(new SqlitePreprocessor());
         return builder;
     }
     
@@ -55,9 +55,9 @@ public static class SQLiteExtensions
     /// </summary>
     /// <param name="table">The name of the table used to store the list of executed scripts.</param>
     /// <returns>The <see cref="UpgradeEngineBuilder"/> used to set the journal table name.</returns>
-    public static UpgradeEngineBuilder JournalToSQLiteTable(this UpgradeEngineBuilder builder, string table)
+    public static UpgradeEngineBuilder JournalToSqliteTable(this UpgradeEngineBuilder builder, string table)
     {
-        builder.Configure(c => c.Journal = new SQLiteTableJournal(() => c.ConnectionManager, () => c.Log, table));
+        builder.Configure(c => c.Journal = new SqliteTableJournal(() => c.ConnectionManager, () => c.Log, table));
         return builder;
     }
 }

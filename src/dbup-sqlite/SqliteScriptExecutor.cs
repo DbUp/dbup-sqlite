@@ -4,24 +4,17 @@ using DbUp.Engine;
 using DbUp.Engine.Output;
 using DbUp.Engine.Transactions;
 using DbUp.Support;
+using Microsoft.Data.Sqlite;
 
-#if MONO
-using SQLiteException = Mono.Data.Sqlite.SqliteException;
-#elif NETCORE
-using SQLiteException = Microsoft.Data.Sqlite.SqliteException;
-#else
-using System.Data.SQLite;
-#endif
-
-namespace DbUp.SQLite
+namespace DbUp.Sqlite
 {
     /// <summary>
     /// An implementation of <see cref="ScriptExecutor"/> that executes against a SQLite database.
     /// </summary>
-    public class SQLiteScriptExecutor : ScriptExecutor
+    public class SqliteScriptExecutor : ScriptExecutor
     {
         /// <summary>
-        /// Initializes an instance of the <see cref="SQLiteScriptExecutor"/> class.
+        /// Initializes an instance of the <see cref="SqliteScriptExecutor"/> class.
         /// </summary>
         /// <param name="connectionManagerFactory"></param>
         /// <param name="log">The logging mechanism.</param>
@@ -29,9 +22,9 @@ namespace DbUp.SQLite
         /// <param name="variablesEnabled">Function that returns <c>true</c> if variables should be replaced, <c>false</c> otherwise.</param>
         /// <param name="scriptPreprocessors">Script Preprocessors in addition to variable substitution</param>
         /// <param name="journalFactory">Database journal</param>
-        public SQLiteScriptExecutor(Func<IConnectionManager> connectionManagerFactory, Func<IUpgradeLog> log, string schema, Func<bool> variablesEnabled,
+        public SqliteScriptExecutor(Func<IConnectionManager> connectionManagerFactory, Func<IUpgradeLog> log, string schema, Func<bool> variablesEnabled,
             IEnumerable<IScriptPreprocessor> scriptPreprocessors, Func<IJournal> journalFactory)
-            : base(connectionManagerFactory, new SQLiteObjectParser(), log, schema, variablesEnabled, scriptPreprocessors, journalFactory)
+            : base(connectionManagerFactory, new SqliteObjectParser(), log, schema, variablesEnabled, scriptPreprocessors, journalFactory)
         {
         }
 
@@ -46,15 +39,11 @@ namespace DbUp.SQLite
             {
                 executeCommand();
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
-                Log().WriteInformation("SQLite exception has occurred in script: '{0}'", script.Name);
-#if NETCORE
-                Log().WriteError("Script block number: {0}; Error Code: {1}; Message: {2}", index, exception.SqliteErrorCode, exception.Message);
-#else
-                Log().WriteError("Script block number: {0}; Error Code: {1}; Message: {2}", index, exception.ErrorCode, exception.Message);
-#endif
-                Log().WriteError(exception.ToString());
+                Log().LogInformation("SQLite exception has occurred in script: '{0}'", script.Name);
+                Log().LogError("Script block number: {0}; Error Code: {1}; Message: {2}", index, exception.SqliteErrorCode, exception.Message);
+                Log().LogError(exception.ToString());
                 throw;
             }
         }
