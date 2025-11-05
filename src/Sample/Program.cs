@@ -7,8 +7,8 @@ namespace SqliteSampleApplication
     {
         static void Main()
         {
-            InMemoryDb();
-            TemporaryFileDb();
+            //InMemoryDb();
+            //TemporaryFileDb();
             PermanentFileDb();
         }
 
@@ -56,7 +56,7 @@ namespace SqliteSampleApplication
 
         static void PermanentFileDb()
         {
-            SqliteConnection connection = new("Data Source=dbup.db");
+            SqliteConnection connection = new("Data Source=dbup.db;");
 
             using (var database = new DbUp.Sqlite.Helpers.SharedConnection(connection))
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DbUp.Engine.Transactions;
 using DbUp.Helpers;
 using Microsoft.Data.Sqlite;
@@ -33,6 +33,9 @@ namespace DbUp.Sqlite.Helpers
             SqlRunner = new AdHocSqlRunner(() => sharedConnection.CreateCommand(), new SqliteObjectParser(), null, () => true);
         }
 
+        /// <summary>
+        /// Gets or sets the connection string for the in-memory database.
+        /// </summary>
         public string ConnectionString { get; set; }
 
         /// <summary>

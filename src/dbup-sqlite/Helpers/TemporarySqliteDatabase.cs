@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using DbUp.Helpers;
 using Microsoft.Data.Sqlite;
@@ -39,6 +39,9 @@ namespace DbUp.Sqlite.Helpers
         /// </summary>
         public AdHocSqlRunner SqlRunner { get; }
 
+        /// <summary>
+        /// Gets the shared connection used by this temporary database.
+        /// </summary>
         public SharedConnection SharedConnection { get; }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using DbUp.Support;
+using DbUp.Support;
 
 namespace DbUp.Sqlite
 {
@@ -7,6 +7,9 @@ namespace DbUp.Sqlite
     /// </summary>
     public class SqliteObjectParser : SqlObjectParser
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqliteObjectParser"/> class.
+        /// </summary>
         public SqliteObjectParser()
             : base("[", "]")
         {
