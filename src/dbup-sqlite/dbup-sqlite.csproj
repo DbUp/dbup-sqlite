@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="dbup-core" Version="6.0.4" />
+    <PackageReference Include="dbup-core" Version="6.0.15" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.0" />
   </ItemGroup>
 
