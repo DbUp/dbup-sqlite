@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 
 namespace DbUp.Sqlite.Helpers
@@ -30,36 +30,50 @@ namespace DbUp.Sqlite.Helpers
                 connection.Open();
         }
 
+        /// <inheritdoc/>
         public IDbTransaction BeginTransaction(IsolationLevel il) => connection.BeginTransaction(il);
 
+        /// <inheritdoc/>
         public IDbTransaction BeginTransaction() => connection.BeginTransaction();
 
+        /// <inheritdoc/>
         public void ChangeDatabase(string databaseName) => connection.ChangeDatabase(databaseName);
 
+        /// <inheritdoc/>
         public void Close() { } // shared underlying connection is not closed 
 
+        /// <inheritdoc/>
         public string ConnectionString
         {
             get => connection.ConnectionString;
             set => connection.ConnectionString = value;
         }
 
+        /// <inheritdoc/>
         public int ConnectionTimeout => connection.ConnectionTimeout;
 
+        /// <inheritdoc/>
         public IDbCommand CreateCommand() => connection.CreateCommand();
 
+        /// <inheritdoc/>
         public string Database => connection.Database;
 
+        /// <inheritdoc/>
         public void Open()
         {
             if (connection.State == ConnectionState.Closed)
                 connection.Open();
         }
 
+        /// <inheritdoc/>
         public ConnectionState State => connection.State;
 
+        /// <inheritdoc/>
         public void Dispose() { } // shared underlying connection is not disposed
 
+        /// <summary>
+        /// Closes the connection if it was opened by this wrapper.
+        /// </summary>
         public void DoClose()
         {
             // if shared underlying connection is opened by this object

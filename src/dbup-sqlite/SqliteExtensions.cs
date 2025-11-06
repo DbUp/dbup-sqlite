@@ -1,4 +1,4 @@
-﻿using DbUp.Builder;
+using DbUp.Builder;
 using DbUp.Sqlite;
 using DbUp.Sqlite.Helpers;
 
@@ -53,6 +53,7 @@ public static class SqliteExtensions
     /// <summary>
     /// Tracks the list of executed scripts in a custom SQLite table.
     /// </summary>
+    /// <param name="builder">The builder.</param>
     /// <param name="table">The name of the table used to store the list of executed scripts.</param>
     /// <returns>The <see cref="UpgradeEngineBuilder"/> used to set the journal table name.</returns>
     public static UpgradeEngineBuilder JournalToSqliteTable(this UpgradeEngineBuilder builder, string table)
